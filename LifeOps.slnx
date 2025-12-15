@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LifeOps.API/LifeOps.API.csproj" />
+  <Project Path="LifeOps.Application/LifeOps.Application.csproj" />
+  <Project Path="LifeOps.Domain/LifeOps.Domain.csproj" />
+  <Project Path="LifeOps.Infrastructure/LifeOps.Infrastructure.csproj" />
+</Solution>
