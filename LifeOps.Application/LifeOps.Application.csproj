@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LifeOps.Domain\LifeOps.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

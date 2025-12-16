@@ -1,4 +1,8 @@
 
+using LifeOps.Application.Interface;
+using LifeOps.Application.Service;
+using LifeOps.Infrastructure.Persistence;
+
 namespace LifeOps.API
 {
     public class Program
@@ -12,6 +16,10 @@ namespace LifeOps.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            // Services
+            builder.Services.AddScoped<IReflectionService, ReflectionService>();
+            builder.Services.AddScoped<IReflectionRepository, InMemoryReflectionRepository>();
 
             var app = builder.Build();
 

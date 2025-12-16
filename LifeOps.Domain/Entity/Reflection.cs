@@ -8,12 +8,12 @@ namespace LifeOps.Domain.Entity
 {
     public class Reflection
     {
-        public Guid Id { get; private set; }
-        public DateOnly Date { get; private set; }
-        public int Mood { get; private set; }
-        public int EnergyLevel { get; private set; }
-        public string Note { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public Guid Id { get; set; }
+        public DateOnly Date { get; set; }
+        public int Mood { get; set; } //1-5, LOW to HIGH
+        public int EnergyLevel { get; set; } //1-5, LOW to HIGH
+        public string Note { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         private Reflection() { }
 
