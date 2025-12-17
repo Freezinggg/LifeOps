@@ -13,5 +13,7 @@ namespace LifeOps.Application.Interface
         Result<ReflectionDTO?> GetById(Guid id);
         Result<IReadOnlyList<ReflectionDTO>> GetAll();
         Result<Guid> Save(CreateReflectionDTO dto);
+        Result<bool> Update(UpdateReflectionDTO dto);
+        Result<bool> Delete(Guid id);
     }
 }

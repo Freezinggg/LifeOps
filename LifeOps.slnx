@@ -3,4 +3,5 @@
   <Project Path="LifeOps.Application/LifeOps.Application.csproj" />
   <Project Path="LifeOps.Domain/LifeOps.Domain.csproj" />
   <Project Path="LifeOps.Infrastructure/LifeOps.Infrastructure.csproj" />
+  <Project Path="LifeOps.MVC/LifeOps.MVC.csproj" Id="f8dc4c6d-6b59-4f08-b035-8d74b17b051c" />
 </Solution>

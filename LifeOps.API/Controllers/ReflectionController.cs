@@ -61,5 +61,41 @@ namespace LifeOps.API.Controllers
                 return StatusCode(500, ApiResponse<object>.Fail("Save reflection error, internal server problem."));
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(Guid id, [FromBody] UpdateReflectionDTO dto)
+        {
+            try
+            {
+                dto.Id = id;
+                var result = _service.Update(dto);
+                if (result.IsNotFound)
+                    return NotFound(ApiResponse<bool>.Fail(result.ErrorMessage));
+
+                return result.IsSuccess ? Ok(ApiResponse<bool>.Ok(true)) : BadRequest(ApiResponse<bool>.Fail(result.ErrorMessage));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<bool>.Fail("Update reflection error, internal server problem."));
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                var result = _service.Delete(id);
+                if (result.IsNotFound)
+                    return NotFound(ApiResponse<bool>.Fail(result.ErrorMessage));
+
+                return result.IsSuccess ? Ok(ApiResponse<bool>.Ok(true)) : BadRequest(ApiResponse<object>.Fail(result.ErrorMessage));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<bool>.Fail("Delete reflection error, internal server problem."));
+            }
+        }
     }
 }

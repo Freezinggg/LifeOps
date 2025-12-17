@@ -1,0 +1,53 @@
+﻿@model LifeOps.Application.DTO.BaseReflectionDTO
+
+<form id="reflectionForm">
+
+    <input type="hidden" id="Id" value="@Model?.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label">Date</label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mood" class="form-label">Mood</label>
+        <select asp-for="Mood" class="form-control">
+            <option value="1">1 - Very bad</option>
+            <option value="2">2 - Bad</option>
+            <option value="3">3 - Neutral</option>
+            <option value="4">4 - Good</option>
+            <option value="5">5 - Very good</option>
+        </select>
+        <span asp-validation-for="Mood" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EnergyLevel" class="form-label">Energy</label>
+        <select asp-for="EnergyLevel" class="form-control">
+            <option value="1">1 - Exhausted</option>
+            <option value="2">2 - Low</option>
+            <option value="3">3 - Okay</option>
+            <option value="4">4 - High</option>
+            <option value="5">5 - Full power</option>
+        </select>
+        <span asp-validation-for="EnergyLevel" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Note" class="form-label">Notes</label>
+        <textarea asp-for="Note" id="Note" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Save</button>
+
+    <div id="alertBox" class="alert d-none mt-3"></div>
+</form>
+
+<script>
+    function showAlert(message, type) {
+        const box = document.getElementById('alertBox');
+        box.className = `alert alert-${type}`;
+        box.innerText = message;
+        box.classList.remove('d-none');
+    }
+</script>

@@ -20,9 +20,18 @@ namespace LifeOps.Application.Service
             _repo = repo;
         }
 
+
+
         public Result<IReadOnlyList<ReflectionDTO>> GetAll()
         {
-            IReadOnlyList<ReflectionDTO> reflectionList = _repo.GetAll().Select(x => new ReflectionDTO(x)).ToList();
+            IReadOnlyList<ReflectionDTO> reflectionList = _repo.GetAll().Select(x => new ReflectionDTO()
+            {
+                Id = x.Id,
+                Date = x.Date,
+                Mood = x.Mood,
+                EnergyLevel = x.EnergyLevel,
+                Note = x.Note
+            }).ToList();
 
             return Result<IReadOnlyList<ReflectionDTO>>.Success(reflectionList);
         }
@@ -32,7 +41,14 @@ namespace LifeOps.Application.Service
             Reflection? reflection = _repo.GetById(id);
             if (reflection == null) return Result<ReflectionDTO?>.NotFound("Reflection doesnt exist.");
 
-            ReflectionDTO dto = new ReflectionDTO(reflection);
+            ReflectionDTO dto = new ReflectionDTO()
+            {
+                Id = reflection.Id,
+                Date = reflection.Date,
+                Mood = reflection.Mood,
+                EnergyLevel = reflection.EnergyLevel,
+                Note = reflection.Note
+            };
             return Result<ReflectionDTO?>.Success(dto);
 
         }
@@ -52,6 +68,47 @@ namespace LifeOps.Application.Service
             catch
             {
                 return Result<Guid>.Error("Save Reflection error");
+            }
+        }
+
+        public Result<bool> Update(UpdateReflectionDTO dto)
+        {
+            try
+            {
+                string validateResult = ReflectionValidator.Validate(dto);
+                if (!string.IsNullOrEmpty(validateResult)) return Result<bool>.Fail(validateResult);
+
+                Reflection reflection = _repo.GetById((Guid)dto.Id);
+                if (reflection == null) return Result<bool>.NotFound("Reflection doesnt exist.");
+
+                reflection.Date = dto.Date;
+                reflection.Note = dto.Note;
+                reflection.EnergyLevel = dto.EnergyLevel;
+                reflection.Mood = dto.Mood;
+
+                _repo.Update(reflection);
+                return Result<bool>.Success(true);
+            }
+            catch
+            {
+                return Result<bool>.Error("Update Reflection error");
+            }
+
+        }
+
+        public Result<bool> Delete(Guid id)
+        {
+            try
+            {
+                Reflection reflection = _repo.GetById(id);
+                if (reflection == null) return Result<bool>.NotFound("Reflection doesnt exist.");
+
+                _repo.Delete(id);
+                return Result<bool>.Success(true);
+            }
+            catch
+            {
+                return Result<bool>.Error("Delete Reflection error");
             }
         }
     }

@@ -34,5 +34,25 @@ namespace LifeOps.Infrastructure.Persistence
                 return null;
             }
         }
+
+        public bool Update(Reflection reflection)
+        {
+            Reflection exist = reflections.Where(x => x.Id == reflection.Id).FirstOrDefault();
+
+            exist.Date = reflection.Date;
+            exist.Note = reflection.Note;
+            exist.EnergyLevel = reflection.EnergyLevel;
+            exist.Mood = reflection.Mood;
+
+            return true;
+        }
+
+        public bool Delete(Guid id)
+        {
+            Reflection refl = reflections.FirstOrDefault(x => x.Id == id);
+            reflections.Remove(refl);
+
+            return true;
+        }
     }
 }

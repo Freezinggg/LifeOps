@@ -12,5 +12,7 @@ namespace LifeOps.Application.Interface
         Reflection? GetById(Guid id);
         IReadOnlyList<Reflection> GetAll();
         Reflection? Save(Reflection reflection);
+        bool Update(Reflection reflection);
+        bool Delete(Guid id);
     }
 }
